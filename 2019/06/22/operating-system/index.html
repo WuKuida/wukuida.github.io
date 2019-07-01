@@ -57,7 +57,8 @@
 <li>系统调用处理结束返回成功或失败</li>
 <li>应用程序获取系统调用的结果之后，继续执行（当然应用程序可能调用之后就去执行别的了，不用等系统调用返回结果）</li>
 </ol>
-<h3 id="3-1-计算机体系结构-内存分层体系"><a href="#3-1-计算机体系结构-内存分层体系" class="headerlink" title="3.1 计算机体系结构/内存分层体系"></a>3.1 计算机体系结构/内存分层体系</h3><p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/computer_struct.png" alt="计算机体系结构"><br><strong>操作系统对内存管理：</strong></p>
+<h3 id="3-1-计算机体系结构-内存分层体系"><a href="#3-1-计算机体系结构-内存分层体系" class="headerlink" title="3.1 计算机体系结构/内存分层体系"></a>3.1 计算机体系结构/内存分层体系</h3><p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/computer_struct.png" alt="计算机体系结构"></p>
+<p><strong>操作系统对内存管理：</strong></p>
 <ul>
 <li>抽象：逻辑地址空间，把实际的地址空间抽象成连续的逻辑地址空间</li>
 <li>保护：应用程序之间独立的地址空间</li>
@@ -161,9 +162,90 @@
 <pre><code>- TLB使用associative memory（关联内存），实际上就是map，(key, value) = (page_num, frame_num)
 - 如果TLB命中，逻辑页号对应的物理页号可以直接获取
 - 如果TLB没有命中，将对应的映射关系存入TLB
-</code></pre><p><img src alt="少了一张截图"><br><strong>空间问题：</strong>对于64位的操作系统，如果帧的大小是1KB，那么页表（数组）的长度应该为$2^{64-10}$,如果每个应用都有对应的页表，那就更大了<br><em>解决方案：</em>通过间接访问（多级也表）<strong>4.4 页表-多级</strong></p>
+</code></pre><p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/TLB_IN_CPU.jpeg" alt="TLB"><br><strong>空间问题：</strong>对于64位的操作系统，如果帧的大小是1KB，那么页表（数组）的长度应该为$2^{64-10}$,如果每个应用都有对应的页表，那就更大了<br><em>解决方案：</em>通过间接访问（多级也表）<strong>4.4 页表-多级</strong></p>
 <pre><code>- 将page_num分成page_num1和page_num2
 - 将page_num1通过一级也表，找到�二级也表的基址（base),然后将page_num2映射到物理帧号
 - 因为访问一级页表里面，可能就不存在对应的二级页表，所以节省了空间
-</code></pre><p><img src alt="少了一张截图"></p>
-<h3 id="4-5-把上面的截图补上"><a href="#4-5-把上面的截图补上" class="headerlink" title="4.5 把上面的截图补上"></a>4.5 把上面的截图补上</h3></div><div class="tags"><a href="/tags/operating-system/">operating_system</a></div><div class="post-nav"><a class="next" href="/2019/06/20/linear-algebra/">linear-algebra</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/machine-learning/" style="font-size: 15px;">machine_learning</a> <a href="/tags/goal/" style="font-size: 15px;">goal</a> <a href="/tags/operating-system/" style="font-size: 15px;">operating_system</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear-algebra</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/22/operating-system/">operating_system</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/20/linear-algebra/">linear-algebra</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/tips/">tips</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/machine-learning/">Machine Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/Goals-for-2019/">Goals for 2019</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="https://github.com/WuKuida" title="wkd's github" target="_blank">wkd's github</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">wkd's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+</code></pre><p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/mult_level_page_talbe_in_memory.jpeg" alt="多级页表"></p>
+<h3 id="4-5-非连续内存分配：页表-反向页表"><a href="#4-5-非连续内存分配：页表-反向页表" class="headerlink" title="4.5 非连续内存分配：页表-反向页表"></a>4.5 非连续内存分配：页表-反向页表</h3><p><strong>基于页寄存器（Page Regisisters)的反向页表：</strong><br> rev_page_tabel[frame_num] = page_num</p>
+<ul>
+<li><p>优点<br>  占用的内存小，只和实际的物理内存和帧（块）大小有关</p>
+</li>
+<li><p>缺点<br>  查找逻辑地址对应的物理地址要怎么办，视频里感觉没将，难道要遍历整个表？？？</p>
+</li>
+</ul>
+<p><strong>基于关联内存（associative memory)的方案：</strong><br>其实就是一个map，&lt; key, value &gt; = &lt; page_num, frame_num &gt;</p>
+<ul>
+<li><p>优点<br>  如果比较小，可以放在内存中，这不就变成快表了吗，无聊</p>
+</li>
+<li><p>缺点<br>  如果比较大，就需要放在内存中，那就需要通过这个表的PTRBR对内存进行访问</p>
+</li>
+</ul>
+<p>如果课程里面讲的是&lt; key, value &gt; = &lt; page_num, frame_num &gt;，那我就无语了</p>
+<p><strong>基于hash tabel的查找方案：</strong><br>通过hash_table[f(pid, page_num)] = frame_num（如果不是这样，那我还是没听懂）</p>
+<ul>
+<li><p>优点<br>  不受制与逻辑地址空间<br>  只需要一个表，不需要针对不同应用，保留一张表</p>
+</li>
+<li><p>缺点<br>  会产生冲突<br>  还是会放到内存中</p>
+</li>
+</ul>
+<h3 id="5-1-虚拟内存的起因"><a href="#5-1-虚拟内存的起因" class="headerlink" title="5.1 虚拟内存的起因"></a>5.1 虚拟内存的起因</h3><p>内存不够用<br>最理想的内存，容量大，速度快，能保存数据<br><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/memory_struct.jpeg" alt="计算机存储框架"></p>
+<h3 id="5-2-覆盖技术"><a href="#5-2-覆盖技术" class="headerlink" title="5.2 覆盖技术"></a>5.2 覆盖技术</h3><p><strong>目标：</strong><br>在较小的内存中运行较大的程序。</p>
+<p><strong>实现：</strong><br>按程序划分成若干个相对独立的模块，让那些不会同时执行的模块共享同一块内存区域。</p>
+<ul>
+<li>必要部分（常用功能）的代码和数据要常驻内存</li>
+<li>可选部分（不常用功能），平时放在外存（磁盘）中，需要时加载到内存</li>
+<li>不存在调用关系的模块不必同时存在内存中，故他们可以共享同一块内存空间<br><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/over_technology.jpeg" alt="覆盖技术"></li>
+</ul>
+<p><strong>优点：</strong><br>可以在相对比较小的内存中跑比较大的程序</p>
+<p><strong>缺点：</strong></p>
+<ul>
+<li>太麻烦了，要程序模块间的覆盖要程序员自己设计</li>
+<li>从外存（磁盘）加载到内存，费时</li>
+</ul>
+<h3 id="5-2-交换技术"><a href="#5-2-交换技术" class="headerlink" title="5.2 交换技术"></a>5.2 交换技术</h3><p><strong>目标：</strong><br>多道程序在内存中的时候，让需要运行的程序或将要运行的程序获得更多的内存资源</p>
+<p><strong>实现：</strong></p>
+<ul>
+<li>将暂时不用的程序从内存移动到外存中（swap out)</li>
+<li>将需要运行但是放在外存中的程序移入到内存中（swap in)</li>
+</ul>
+<p><strong>考虑的问题：</strong></p>
+<ul>
+<li>需要考虑换入换出的时间（只有当有程序内存不够用时才进行）</li>
+<li>交换区的大小（感觉就是虚拟内存的概念）极端情况只有一个程序留在内存里，别的都放到交换区</li>
+<li>换出的程序，换入之后可能不在原来的地址空间</li>
+</ul>
+<p><strong>和覆盖技术的区别：</strong></p>
+<ul>
+<li><p>覆盖技术</p>
+<ul>
+<li>颗粒度是程序内的一个模块</li>
+<li>需要程序员自己设计（太麻烦了）</li>
+<li>对正在运行中的程序进行操作</li>
+</ul>
+</li>
+<li><p>交换技术</p>
+<ul>
+<li>颗粒度是一整个程序（太浪费时间了）</li>
+<li>由操作系统完成</li>
+<li>对没有正在运行的程序操作 </li>
+</ul>
+</li>
+</ul>
+<h3 id="5-3-虚存技术（上）"><a href="#5-3-虚存技术（上）" class="headerlink" title="5.3 虚存技术（上）"></a>5.3 虚存技术（上）</h3><p><strong>目标：</strong></p>
+<ul>
+<li>像覆盖技术那样，只把程序的部分内容放在内存中，�且无需人为干预</li>
+<li>像交换技术那样，能够实现进程在内存与外存之间的交换</li>
+</ul>
+<p><strong>程序的局部性原理：</strong></p>
+<ul>
+<li>时间局部性：一条指令（数据）一次访问和下一次访问都集中在较短的时间</li>
+<li>空间局部性：当前指令（数据）和下一条指令（数据）都集中再较小的一块区域</li>
+</ul>
+<p><strong>基本特征：</strong></p>
+<ul>
+<li>大的用户空间：因为把磁盘也当成内存使用</li>
+<li>部分交换：与交换技术相比，虚拟存储的换入和换出的内存是对部分虚拟地址空间进行的</li>
+<li>不连续性：物理内存分配的不连续，虚拟地址空间使用的不连续</li>
+</ul>
+<h3 id="5-4-虚存技术（下）"><a href="#5-4-虚存技术（下）" class="headerlink" title="5.4 虚存技术（下）"></a>5.4 虚存技术（下）</h3></div><div class="tags"><a href="/tags/operating-system/">operating_system</a></div><div class="post-nav"><a class="next" href="/2019/06/20/linear-algebra/">linear-algebra</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/goal/" style="font-size: 15px;">goal</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear-algebra</a> <a href="/tags/operating-system/" style="font-size: 15px;">operating_system</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine_learning</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/22/operating-system/">operating_system</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/20/linear-algebra/">linear-algebra</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/tips/">tips</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/machine-learning/">Machine Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/Goals-for-2019/">Goals for 2019</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="https://github.com/WuKuida" title="wkd's github" target="_blank">wkd's github</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">wkd's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
