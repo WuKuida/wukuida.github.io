@@ -323,6 +323,21 @@
 <p>相对比较接近最优页面置换算法，也利用了程序运行的时空局部性</p>
 <p><strong>缺点：</strong></p>
 <p>因为需要记录每个页面的使用时间的先后次序。假如用的是链表：需要用到两个指针。如果访问了在内存中存在的页面，则需要在链表中找到这项把这一项从链表中移到链表的头部。如果不存在，则淘汰链表尾部的元素，将新加入的放入链表头</p>
-<p><img src="(https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/LRU.jpeg" alt="LRU"></p>
-<p><span id="Belady">Belady</span></p>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/LRU.jpeg" alt="LRU"></p>
+<h3 id="6-4-时钟页面置换算法（Colock）"><a href="#6-4-时钟页面置换算法（Colock）" class="headerlink" title="6.4 时钟页面置换算法（Colock）"></a>6.4 时钟页面置换算法（Colock）</h3><p><strong>基本思路：</strong></p>
+<ul>
+<li><p>如果一个物理页面最近被访问了（读/写），那么在页表中对应的那个页表项内的访问位（access bit)会被设置成1</p>
+</li>
+<li><p>将存在内存中的页面的页表项组成一个环形链表（类似一个时钟）</p>
+</li>
+<li><p>当发生缺页中断的时候，判断当前指针指向的页表项中的访问位是否位1，是1的话设置成0，指针往后挪一位。最先找到一个访问位是0的，则就是我们需要调出去的页面</p>
+</li>
+<li><p>找到需要调出内存中的页之后，还是一样的操作，将该页表项中的驻留位设置成0，如果这个页被写过，还需要同步到外存中。然后将我们要加入的逻辑页对应的页表项的物理地址改成刚刚腾出来的，外存的数据写到该物理页，驻留位改成1，访问位设置成1。</p>
+</li>
+<li><p><font color="red">指针往后挪一个</font>,不挪的话，在极端情况下刚刚加入的时候，恰巧其它页表项的访问位也都是1，那么下一次还是先淘汰了这个新加入的页，感觉不太合理了。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/Clock.jpeg" alt="Clock"></p>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/Clock2.jpeg" alt="Clock2"></p>
+<h3 id="6-5-二次机会法"><a href="#6-5-二次机会法" class="headerlink" title="6.5 二次机会法"></a>6.5 二次机会法</h3><p><span id="Belady">Belady</span></p>
 </div><div class="tags"><a href="/tags/operating-system/">operating_system</a></div><div class="post-nav"><a class="next" href="/2019/06/20/linear-algebra/">linear-algebra</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/goal/" style="font-size: 15px;">goal</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine_learning</a> <a href="/tags/operating-system/" style="font-size: 15px;">operating_system</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear-algebra</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/22/operating-system/">operating_system</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/20/linear-algebra/">linear-algebra</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/tips/">tips</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/machine-learning/">Machine Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/Goals-for-2019/">Goals for 2019</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="https://github.com/WuKuida" title="wkd's github" target="_blank">wkd's github</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">wkd's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
