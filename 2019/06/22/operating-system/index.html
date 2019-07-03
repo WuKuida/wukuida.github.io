@@ -324,7 +324,7 @@
 <p><strong>缺点：</strong></p>
 <p>因为需要记录每个页面的使用时间的先后次序。假如用的是链表：需要用到两个指针。如果访问了在内存中存在的页面，则需要在链表中找到这项把这一项从链表中移到链表的头部。如果不存在，则淘汰链表尾部的元素，将新加入的放入链表头</p>
 <p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/LRU.jpeg" alt="LRU"></p>
-<h3 id="6-4-时钟页面置换算法（Colock）"><a href="#6-4-时钟页面置换算法（Colock）" class="headerlink" title="6.4 时钟页面置换算法（Colock）"></a>6.4 时钟页面置换算法（Colock）</h3><p><strong>基本思路：</strong></p>
+<h3 id="6-4-时钟页面置换算法（Clock）"><a href="#6-4-时钟页面置换算法（Clock）" class="headerlink" title="6.4 时钟页面置换算法（Clock）"></a>6.4 时钟页面置换算法（Clock）</h3><p><strong>基本思路：</strong></p>
 <ul>
 <li><p>如果一个物理页面最近被访问了（读/写），那么在页表中对应的那个页表项内的访问位（access bit)会被设置成1</p>
 </li>
@@ -339,5 +339,57 @@
 </ul>
 <p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/Clock.jpeg" alt="Clock"></p>
 <p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/Clock2.jpeg" alt="Clock2"></p>
-<h3 id="6-5-二次机会法"><a href="#6-5-二次机会法" class="headerlink" title="6.5 二次机会法"></a>6.5 二次机会法</h3><p><span id="Belady">Belady</span></p>
+<h3 id="6-5-二次机会法"><a href="#6-5-二次机会法" class="headerlink" title="6.5 二次机会法"></a>6.5 二次机会法</h3><p><strong>基本思路：</strong></p>
+<ul>
+<li><p>和时钟页面置换算法差不多，只不过用了dirty bit</p>
+</li>
+<li><p>当access bit是0时，看dirty bit是不是1，是的话，从1变成0。</p>
+</li>
+<li><p>如果access bit和dirty bit都是0，则换出</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/TwoChance.jpeg" alt="TwoChance"></p>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/TwoChance2.jpeg" alt="TwoChance2"></p>
+<font color="red">如果dirty bit变成0了，我们怎么知道这个位是修改过的呢，当想要把这个页替换出去的时候，怎么判断要不要对外存中的数据进行修改？</font>
+
+
+
+<h3 id="6-6-最不常用算法（LFU：Least-Frequently-Used"><a href="#6-6-最不常用算法（LFU：Least-Frequently-Used" class="headerlink" title="6.6 最不常用算法（LFU：Least Frequently Used)"></a>6.6 最不常用算法（LFU：Least Frequently Used)</h3><p><strong>基本思路：</strong></p>
+<ul>
+<li>当缺页中断发生的时候，将访问次数最少的页替换出去</li>
+</ul>
+<p><strong>实现方法：</strong></p>
+<ul>
+<li><p>对每一个页面都设置一个访问计数器，当一个页面被访问的时候，计数器+1。</p>
+</li>
+<li><p>当要淘汰一个页面的时候，找到计数最少的那个页面</p>
+</li>
+</ul>
+<p><strong>缺点：</strong></p>
+<ul>
+<li><p>计数器加一，硬件成本太高</p>
+</li>
+<li><p>维护，查找计数最少的页，效率太低</p>
+</li>
+<li><p>而且对刚加入内存的页不友好</p>
+</li>
+</ul>
+<p><strong>和LRU的区别：</strong></p>
+<ul>
+<li><p>LRU考虑的是<font color="red"> 保留最近访问的</font></p>
+</li>
+<li><p>LFU考虑的是<font color="red">保留访问频次高的</font></p>
+</li>
+</ul>
+<h3 id="6-7-Belady现象，FIFO-LRU-Clock的比较"><a href="#6-7-Belady现象，FIFO-LRU-Clock的比较" class="headerlink" title="6.7 Belady现象，FIFO,LRU,Clock的比较"></a>6.7 <span id="Belady">Belady</span>现象，FIFO,LRU,Clock的比较</h3><p><strong>belady现象：</strong>在采用FIFO的时候，增加分配的物理内存页，反而会造成更多的缺页中断</p>
+<p><strong>belady现象原因：</strong>FIFO与进程访问内存的时空局部性相矛盾</p>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/belady_size3.jpeg" alt="belady现象,size为3"></p>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/belady_size4.jpeg" alt="belady现象,size为4"></p>
+<p><strong>相同点：</strong></p>
+<ul>
+<li><font color="red">FIFO，LRU，Clock都是局部页替换算法，对一个正在运行的程序，决定要替换出去的页</font>
+
+</li>
+</ul>
+<p>不同点</p>
 </div><div class="tags"><a href="/tags/operating-system/">operating_system</a></div><div class="post-nav"><a class="next" href="/2019/06/20/linear-algebra/">linear-algebra</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/goal/" style="font-size: 15px;">goal</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine_learning</a> <a href="/tags/operating-system/" style="font-size: 15px;">operating_system</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear-algebra</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/22/operating-system/">operating_system</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/20/linear-algebra/">linear-algebra</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/tips/">tips</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/machine-learning/">Machine Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/Goals-for-2019/">Goals for 2019</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="https://github.com/WuKuida" title="wkd's github" target="_blank">wkd's github</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">wkd's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
