@@ -306,7 +306,7 @@
 <li>其他段：可能被映射到交换文件（swap file)–运行过程中产生的数据</li>
 </ul>
 <p><strong>虚拟内存性能：</strong><br><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/EAT.jpeg" alt="EAT的计算"></p>
-<h3 id="6-1-最优页面置换算法"><a href="#6-1-最优页面置换算法" class="headerlink" title="6.1 最优页面置换算法"></a>6.1 最优页面置换算法</h3><p><strong>功能：</strong><br>当缺页中断产生的时候，需要调入新的页面但是内存已满，需要选择内存中换出的页面</p>
+<h3 id="6-1-最优页面置换算法-OPT-optimal"><a href="#6-1-最优页面置换算法-OPT-optimal" class="headerlink" title="6.1 最优页面置换算法(OPT:optimal)"></a>6.1 最优页面置换算法(OPT:optimal)</h3><p><strong>功能：</strong><br>当缺页中断产生的时候，需要调入新的页面但是内存已满，需要选择内存中换出的页面</p>
 <p><strong>目标：</strong><br>尽量减少缺页中断的次数</p>
 <p><strong>最优页面置换算法：</strong><br>当一个缺页中断产生的时候，找到内存中离下一次访问最久的那个页面，把它替换出去（最理想的，不可能实现）</p>
 <p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/optimal_page_replacement_algorithm.jpeg" alt="最优页面置换算法"></p>
@@ -352,8 +352,6 @@
 <p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/TwoChance2.jpeg" alt="TwoChance2"></p>
 <font color="red">如果dirty bit变成0了，我们怎么知道这个位是修改过的呢，当想要把这个页替换出去的时候，怎么判断要不要对外存中的数据进行修改？</font>
 
-
-
 <h3 id="6-6-最不常用算法（LFU：Least-Frequently-Used"><a href="#6-6-最不常用算法（LFU：Least-Frequently-Used" class="headerlink" title="6.6 最不常用算法（LFU：Least Frequently Used)"></a>6.6 最不常用算法（LFU：Least Frequently Used)</h3><p><strong>基本思路：</strong></p>
 <ul>
 <li>当缺页中断发生的时候，将访问次数最少的页替换出去</li>
@@ -385,11 +383,342 @@
 <p><strong>belady现象原因：</strong>FIFO与进程访问内存的时空局部性相矛盾</p>
 <p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/belady_size3.jpeg" alt="belady现象,size为3"></p>
 <p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/belady_size4.jpeg" alt="belady现象,size为4"></p>
+<ul>
+<li><p>观察就可以发现对于size=4的，因为在第5，6次访问的时候1和2都还在所以没有动，但是当第7次访问5时，却把最近访问过的1淘汰了</p>
+</li>
+<li><p>相对的，当size=3时，第5，6次访问的时候把1和2重新加入了，在第七次访问的时候并没有把最近访问过的1和2淘汰掉</p>
+</li>
+</ul>
+<p><strong>其它：</strong></p>
+<ul>
+<li><p>LRU不存在Belady现象，因为越多的物理内存，那么保存页面肯定会包含较少的物理内存保存页面</p>
+</li>
+<li><p>Clock也不存在Belady现象，因为当只有n个物理内存的时候，如果某次缺页中断要淘汰a页，也就是其它n-1页都比a页有价值。那么同样的情况下，当有n+1个物理内存的时候，要不淘汰a页，要么a页比新多出来的那一页有价值，淘汰多出来的那一页。所以后者肯定包含前者。<font color="red">但是改变了指针的访问顺序，不知道这个要怎么说明。</font></p>
+</li>
+</ul>
 <p><strong>相同点：</strong></p>
 <ul>
 <li><font color="red">FIFO，LRU，Clock都是局部页替换算法，对一个正在运行的程序，决定要替换出去的页</font>
 
 </li>
 </ul>
-<p>不同点</p>
-</div><div class="tags"><a href="/tags/operating-system/">operating_system</a></div><div class="post-nav"><a class="next" href="/2019/06/20/linear-algebra/">linear-algebra</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/goal/" style="font-size: 15px;">goal</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine_learning</a> <a href="/tags/operating-system/" style="font-size: 15px;">operating_system</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear-algebra</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/06/22/operating-system/">operating_system</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/20/linear-algebra/">linear-algebra</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/tips/">tips</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/machine-learning/">Machine Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/hello-world/">Hello World</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/Goals-for-2019/">Goals for 2019</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="https://github.com/WuKuida" title="wkd's github" target="_blank">wkd's github</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">wkd's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
+<p><strong>不同点：</strong></p>
+<ul>
+<li><p>FIFO:是根据页面进入内存的时间排序</p>
+</li>
+<li><p>LRU:是根据页面访问时间进行排序，<font color="red">如果每次都要加入新的页面，那么页面访问时间就等于页面进入内存的时间，LRU就会退化成FIFO</font></p>
+</li>
+<li><p>Clock:是相对LRU的简化版</p>
+</li>
+</ul>
+<h3 id="6-8-局部替换算法的问题，工作集模型"><a href="#6-8-局部替换算法的问题，工作集模型" class="headerlink" title="6.8 局部替换算法的问题，工作集模型"></a>6.8 局部替换算法的问题，工作集模型</h3><p><strong>局部页面置换算法的问题：</strong></p>
+<ul>
+<li><p>局部页面置换算法比较依赖于分配这个进程的内存空间</p>
+</li>
+<li><p>程序运行过程中，程序对内存的需求是变动的</p>
+</li>
+</ul>
+<p><strong>工作集：</strong>一个进程当前最近一段时间使用的逻辑页面集合-</p>
+<ul>
+<li><p>t是当前执行的时刻</p>
+</li>
+<li><p>&Delta; 是工作集窗口大小（working-set window)，就好一个时间窗口</p>
+</li>
+<li><p>W(t, &Delta;) = 当前时刻t往前&Delta;的时间范围内，访问的逻辑页面组成的集合</p>
+</li>
+<li><p>|W(t, &Delta;)|集合内元素的个数 </p>
+</li>
+</ul>
+<p><img src="[https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/workSet.jpeg" alt="工作集大小的变化"></p>
+<p><strong>常住集:</strong>当前时刻，进程中实际驻留在内存中的页面集合</p>
+<ul>
+<li><p>工作集是进程运行的固有属性</p>
+</li>
+<li><p>常驻集取决于工作集，系统分配给进程的内存空间，采用的页面置换算法</p>
+</li>
+<li><p>当分配的内存空间足够是，常驻集包含工作集，这个时候程序运行相对会比较顺利，不会有太多缺页中断（直到工作集发生变化，过渡到另一个稳定状态</p>
+</li>
+<li><p>当分配的内存空间足够之后，再增加并不会明显改善缺页中断</p>
+</li>
+</ul>
+<h3 id="6-9-两个全局置换算法"><a href="#6-9-两个全局置换算法" class="headerlink" title="6.9 两个全局置换算法"></a>6.9 两个全局置换算法</h3><p><strong>工作集页置换算法：</strong></p>
+<ul>
+<li><p>在内存中页面如果不在工作集中了，那么也会被调出内存</p>
+</li>
+<li><font color="red">我理解如果在前面的条件下，分配给一个进程的物理内存不够，发生缺页中断，还是需要一个局部页面替换算法，这个工作集替换算法只是让调出页面的途径多了一种</font>
+
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/workSetApply.jpeg" alt="workSetApply"></p>
+</li>
+</ul>
+<p><strong>基于缺页率的页面置换算法：</strong></p>
+<p>缺页率（缺页次数/内存访问次数）的因素有以下几点：</p>
+<ul>
+<li><p>页面置换算法</p>
+</li>
+<li><p>分配给进程的物理内存</p>
+</li>
+<li><p>页面大小</p>
+</li>
+<li><p>程序的编写方式</p>
+</li>
+</ul>
+<p>基本思路：</p>
+<ul>
+<li><p>常驻集可变，本质就是给各个运行中的进程动态分配物理内存</p>
+</li>
+<li><p>具体实现，可以使用缺页率算法（PFF，page falut frequency)</p>
+<ul>
+<li><p>设置一个阈值T</p>
+</li>
+<li><p>如果两次缺页中断时间间隔&lt;=T,那么就增加物理内存，让新增的页直接保留</p>
+</li>
+<li><p>如果两次缺页中断时间间隔&gt;T,那么就减少物理内存，只保留两次缺页中断中访问过的页</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/PFF.jpeg" alt="PFF"></p>
+</li>
+</ul>
+<h3 id="6-10-抖动问题"><a href="#6-10-抖动问题" class="headerlink" title="6.10 抖动问题"></a>6.10 抖动问题</h3><p><strong>原因：</strong></p>
+<ul>
+<li><p>如果运行的进程过多，每个进程分配到的内存就变少了，缺页率就会上升。</p>
+</li>
+<li><p>如果一个进程的常驻集是工作集的子集，会频繁的发生缺页中断，使得进程运行速率很慢，这种现象称之为“抖动”</p>
+</li>
+</ul>
+<p><strong>解决方案：</strong></p>
+<p>没讲，略</p>
+<h3 id="7-1-进程的定义"><a href="#7-1-进程的定义" class="headerlink" title="7.1 进程的定义"></a>7.1 进程的定义</h3><p><strong><font id="originDefine">进程的定义：</font></strong></p>
+<ul>
+<li><p>一个具有一定独立功能的程序在一个数据集合上的一次动态执行过程</p>
+</li>
+<li><p>上面的太专业了，我就只会说程序运行的时候就变成进程了</p>
+</li>
+</ul>
+<h3 id="7-2-进程的组成"><a href="#7-2-进程的组成" class="headerlink" title="7.2 进程的组成"></a>7.2 进程的组成</h3><p><strong>进程的组成：</strong></p>
+<ul>
+<li><font color="green">程序的代码</font>
+</li>
+<li><font color="green">程序处理的数据</font>
+</li>
+<li><p>程序计数器中的值，指示下一条将运行的指令</p>
+</li>
+<li><p>一组通用的寄存器的当前值，堆，栈</p>
+</li>
+<li><p>一组系统资源（如打开的文件）</p>
+</li>
+</ul>
+<p>总之，进程包含了正在运行的一个程序的所有状态信息</p>
+<p><strong>进程和程序的联系：</strong></p>
+<ul>
+<li><p>程序是产生进程的基础</p>
+</li>
+<li><p>程序的每次运行都会产生不同的功能</p>
+</li>
+<li><p>进程是程序功能的体现</p>
+</li>
+<li><p>通过多次执行，一个程序可以对应多个进程</p>
+</li>
+<li><p>通过调用关系，一个进程可以包括多个程序</p>
+</li>
+</ul>
+<p><strong>进程与程序的区别：</strong></p>
+<ul>
+<li><p><font color="red">进程是动态的，程序是静态的</font>；进程是程序的执行，进程有核心态/用户态</p>
+</li>
+<li><p>进程是暂时的，程序是永久的；进程是一个状态变化的过程，程序可以长久保存</p>
+</li>
+<li><p>进程与程序的组成不过：程序是有序代码段的集合；进程的组成包括程序，数据和进程控制块</p>
+</li>
+</ul>
+<h3 id="7-4-进程控制结构"><a href="#7-4-进程控制结构" class="headerlink" title="7.4 进程控制结构"></a>7.4 进程控制结构</h3><p><strong>进程控制块（PCB）：</strong></p>
+<ul>
+<li><p>操作系统管理控制进程运行所用的信息集合</p>
+</li>
+<li><font color="red">PCB是进程的唯一标志，PCB存在才意味着进程存在</font>
+
+</li>
+</ul>
+<p><strong>PCB的内容：</strong></p>
+<ul>
+<li><p>进程标示信息：pid，以及父进程pid，创建的用户</p>
+</li>
+<li><p>处理机状态信息：保存进程的运行状态的现场信息</p>
+<ul>
+<li><p>用户可见寄存器：用户程序可以使用的数据，地址的寄存器</p>
+</li>
+<li><p>控制和状态寄存器：如程序计数器（PC），程序状态字（PSW）</p>
+</li>
+<li><p>栈指针：过程调用/系统调用/中断处理和返回时需要用到它</p>
+</li>
+</ul>
+</li>
+<li><p>进程控制信息：</p>
+<ul>
+<li><p>调度和状态信息：用于调度系统调度进程并占用处理机使用</p>
+</li>
+<li><p>进程间通信信息：为支持进程间通信的各种标示，信号，信件等，这些信息存在接收方的PCB中</p>
+</li>
+<li><p>存储管理信息：包含指向本进程映像存储空间的数据结构</p>
+</li>
+<li><p>进程所用资源：说明由进程打开，使用的系统资源，如打开的文件。</p>
+</li>
+<li><p>有关数据结构连接信息：进程可以连接到一个进程队列中，或连接到相关的其它进程PCB</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>PCB的组织方式：</strong></p>
+<ul>
+<li><p>链表：同一状态的进程PCB成一链表（就绪链表，阻塞链表）</p>
+</li>
+<li><p>索引表：不常用，略</p>
+</li>
+</ul>
+<h3 id="7-5-进程的生命周期"><a href="#7-5-进程的生命周期" class="headerlink" title="7.5 进程的生命周期"></a>7.5 进程的生命周期</h3><p><strong>进程创建：</strong></p>
+<ul>
+<li><font color="red">系统初始化时，创建init进程</font>
+</li>
+<li><p>用户请求创建一个新进程</p>
+</li>
+<li><p>正在运行的进程执行创建进程的系统调用</p>
+</li>
+</ul>
+<p><strong>进程运行：</strong></p>
+<ul>
+<li><p><a href="#why_choose">为何选择？</a></p>
+</li>
+<li><p><a href="#how_choose">如何选择？</a></p>
+</li>
+</ul>
+<p><strong>进程等待（阻塞）：</strong></p>
+<ul>
+<li><p>请求等待系统服务（无法马上完成）</p>
+</li>
+<li><p>启动某种操作（无法马上完成）</p>
+</li>
+<li><p>需要的数据没有到位</p>
+</li>
+</ul>
+<font color="red">进程只能自己阻塞自己，因为只有进程自身才知道何时需要等待某种事情发生</font>
+
+<p><strong>进程唤醒：</strong></p>
+<ul>
+<li><p>被阻塞进程需要的资源可被满足</p>
+</li>
+<li><p>被阻塞进程等待的事件到达</p>
+</li>
+<li><p>将改进程对应的PCB从等待队列加入到就绪队列</p>
+</li>
+</ul>
+<font color="red">进程只能被别的进程，或操作系统唤醒</font>
+
+<p><strong>进程结束：</strong></p>
+<ul>
+<li><p>正常退出（自愿的）</p>
+</li>
+<li><p>错误退出（自愿的）</p>
+</li>
+<li><p>致命错误（强制性的）</p>
+</li>
+<li><p>被其它进程所杀（强制性的）</p>
+</li>
+</ul>
+<h3 id="7-6-进程状态变化模型"><a href="#7-6-进程状态变化模型" class="headerlink" title="7.6 进程状态变化模型"></a>7.6 进程状态变化模型</h3><p><strong>进程的三种基本状态：</strong></p>
+<ul>
+<li><p>运行状态（Running):正在占用cpu资源</p>
+</li>
+<li><p>就绪状态（Ready):获得了除cpu以外的所有资源</p>
+</li>
+<li><p>等待状态（Blocked）:一个进程因为需要等待某一个事件而暂停运行。如IO等待。</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/pcb_life.jpeg" alt="pcbLife"></p>
+<h3 id="7-7-进程挂起"><a href="#7-7-进程挂起" class="headerlink" title="7.7 进程挂起"></a>7.7 进程挂起</h3><font color="red">进程挂起意味着进程没有在内存，在磁盘上</font>
+
+<ul>
+<li><p>阻塞挂起状态（Blocked-suspend)</p>
+</li>
+<li><p>就绪挂起状态（Ready-suspend）</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/all_pcb_life.jpeg" alt="allPcbLife"></p>
+<p>进程PCB管理-状态队列：</p>
+<ul>
+<li><p>由<font color="red">操作系统</font>维护一系列队列</p>
+</li>
+<li><p>不同状态的进程放到不同的队列中（<font color="red">根据优先级不同由多个就绪队列，根据阻塞原因不同有多个阻塞队列</font>）</p>
+</li>
+<li><p>当进程状态发生变化时，会从一个队列到另一个队列</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/stateQueue.jpeg" alt="stateQueue"></p>
+<h3 id="7-8-为什么使用线程"><a href="#7-8-为什么使用线程" class="headerlink" title="7.8 为什么使用线程"></a>7.8 为什么使用线程</h3><p><strong>【案例】编写一个MP3的播放软件</strong></p>
+<p>核心功能模块有3个：</p>
+<ol>
+<li><p>从MP3音频文件中读取数据</p>
+</li>
+<li><p>对数据进行解压缩</p>
+</li>
+<li><p>将解压缩之后的音频数据通过声卡播放出来</p>
+</li>
+</ol>
+<p>单进程的实现方法：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Read();</span><br><span class="line">        Docompress();</span><br><span class="line">        Play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p>多进程实现方式：</p>
+<figure class="highlight c"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//读数据进程</span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Read();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//解压数据进程</span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Decompress();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//播放进程</span></span><br><span class="line">main()</span><br><span class="line">&#123;</span><br><span class="line">    <span class="keyword">while</span>(<span class="literal">true</span>)</span><br><span class="line">    &#123;</span><br><span class="line">        Play();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<p><strong>存在的问题：</strong></p>
+<ul>
+<li><p>如果用单进程，每次都要等读入数据之后才能播放，播放会不连贯</p>
+</li>
+<li><p>如果用多进程，进程间如何通信，共享数据。维护多进程的开销比较大</p>
+</li>
+</ul>
+<h3 id="7-9-什么是线程"><a href="#7-9-什么是线程" class="headerlink" title="7.9 什么是线程"></a>7.9 什么是线程</h3><p><strong>线程的定义：</strong></p>
+<ul>
+<li>进程当中的一条执行流程</li>
+</ul>
+<p><strong>进程的定义：</strong></p>
+<ul>
+<li><p><a href="#originDefine">原来的定义</a></p>
+</li>
+<li><p>进程是一个资源平台，包括代码段，数据，打开的文件等</p>
+</li>
+</ul>
+<p><strong>线程和进程的比较：</strong></p>
+<ul>
+<li><font color="red">进程是资源分配单位，线程是cpu调度单位</font>
+</li>
+<li><p>进程有一个完整的资源平台，而线程只独享必不可少的资源，如寄存器，堆栈</p>
+</li>
+<li><p>线程同样具有就绪，阻塞，执行三种基本状态</p>
+</li>
+<li><p>线程能减少并发执行的时间和空间开销：</p>
+<ul>
+<li><p>线程的创建时间比进程短</p>
+</li>
+<li><p>线程的终止时间比进程短</p>
+</li>
+<li><p>同一进程内的线程切换时间比较短</p>
+</li>
+<li><p>由于同一个进程的各线程共享内存和文件资源，不需要内核的通信</p>
+</li>
+</ul>
+</li>
+</ul>
+<p><strong>线程的优点：</strong></p>
+<ul>
+<li><p>线程之间可以并发地执行</p>
+</li>
+<li><p>线程之间共享相同的地址空间</p>
+</li>
+</ul>
+<p><strong>线程的缺点：</strong></p>
+<ul>
+<li><p>一个线程崩溃，会导致其所属进程的所有线程崩溃</p>
+<ul>
+<li>例如打开网页如果用多个线程，一旦一个网页有问题会导致所有网页关闭，所以像Chrome打开一个网页都是一个进程</li>
+</ul>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/threadSource.jpeg" alt="threadSource"></p>
+<h3 id="7-10-线程的实现"><a href="#7-10-线程的实现" class="headerlink" title="7.10 线程的实现"></a>7.10 线程的实现</h3></div><div class="tags"><a href="/tags/operating-system/">operating_system</a></div><div class="post-nav"><a class="pre" href="/2019/07/07/feeling-after-one-year-work/">feeling_after_one_year_work</a><a class="next" href="/2019/06/20/linear-algebra/">linear-algebra</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/computer-networks/" style="font-size: 15px;">computer_networks</a> <a href="/tags/goal/" style="font-size: 15px;">goal</a> <a href="/tags/prose/" style="font-size: 15px;">prose</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear-algebra</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine_learning</a> <a href="/tags/operating-system/" style="font-size: 15px;">operating_system</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/07/13/computer-networks/">computer_networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/07/feeling-after-one-year-work/">feeling_after_one_year_work</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/22/operating-system/">operating_system</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/20/linear-algebra/">linear-algebra</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/tips/">tips</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/machine-learning/">Machine Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/Goals-for-2019/">Goals for 2019</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="https://github.com/WuKuida" title="wkd's github" target="_blank">wkd's github</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">wkd's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>

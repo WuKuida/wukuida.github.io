@@ -1,0 +1,163 @@
+<!DOCTYPE html><html><head><meta name="generator" content="Hexo 3.8.0"><meta http-equiv="content-type" content="text/html; charset=utf-8"><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black-translucent" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="description"><title>computer_networks | wkd's blog</title><link rel="stylesheet" type="text/css" href="/css/style.css?v=0.0.0"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/normalize/8.0.1/normalize.min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/pure-min.css"><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/pure/1.0.0/grids-responsive-min.css"><link rel="stylesheet" href="//lib.baomitu.com/font-awesome/4.7.0/css/font-awesome.min.css"><script type="text/javascript" src="//lib.baomitu.com/jquery/3.3.1/jquery.min.js"></script><link rel="icon" mask sizes="any" href="/favicon.ico"><link rel="Shortcut Icon" type="image/x-icon" href="/favicon.ico"><link rel="apple-touch-icon" href="/apple-touch-icon.png"><link rel="apple-touch-icon-precomposed" href="/apple-touch-icon.png"></head><body><div class="body_container"><div id="header"><div class="site-name"><h1 class="hidden">computer_networks</h1><a id="logo" href="/.">wkd's blog</a><p class="description"></p></div><div id="nav-menu"><a class="current" href="/."><i class="fa fa-home"> Start</i></a><a href="/archives/"><i class="fa fa-archive"> Archiv</i></a><a href="/about/"><i class="fa fa-user"> Über</i></a><a href="/atom.xml"><i class="fa fa-rss"> RSS</i></a></div></div><div class="pure-g" id="layout"><div class="pure-u-1 pure-u-md-3-4"><div class="content_container"><div class="post"><h1 class="post-title">computer_networks</h1><div class="post-meta">Jul 13, 2019</div><div class="post-content"><p>计算机网络回忆录-<a href="https://www.bilibili.com/video/av9876107?from=search&amp;seid=12894485370691374503" target="_blank" rel="noopener">计算机网络](https://www.bilibili.com/video/av9876107?from=search&amp;seid=12894485370691374503</a></p>
+<h3 id="1-计算机网络概述"><a href="#1-计算机网络概述" class="headerlink" title="1 计算机网络概述"></a>1 计算机网络概述</h3><p><strong>局域网：</strong></p>
+<ul>
+<li><p>汇聚层交换机的端口带宽一般大于接入层交换机端口流量</p>
+</li>
+<li><p>交换机之间的连接一般是星形结构</p>
+</li>
+<li><p>覆盖范围小（100m以内），带宽固定（10M，100M，1000M，自己维护）</p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/localNetwork.jpeg" alt="localNetwork"></p>
+<p><strong>广域网：</strong></p>
+<ul>
+<li>距离远（可以超过100m，例如光纤接入），带宽不固定（花钱租带宽）</li>
+</ul>
+<p><strong>Internet：</strong></p>
+<ul>
+<li>IPS（internet service provider）：像电信，联通，移动有自己的机房，对网民提供访问Internet的服务。</li>
+</ul>
+<p><strong>IP:</strong></p>
+<ul>
+<li><p>分为网段+</p>
+</li>
+<li><p>路由器的作用是在不同网段转发数据</p>
+</li>
+<li><p>一般路由器的ip地址是所属网段的第一个的ip地址，例如网段是15.0.0.0,路由器的ip地址就是15.0.0.1，若有电脑通过该路由器连接广域网那对应的网关也是15.0.0.1</p>
+</li>
+</ul>
+<p><strong>MAC地址：</strong></p>
+<ul>
+<li><p>每个网卡都有MAC地址（物理地址），48位二进制组成，路由器有多个网卡，所以路由器会有多个MAC地址</p>
+</li>
+<li><p>交换机作为路由器的辅助增广器，没有网卡，也就没有MAC地址。交换机通过MAC地址找到对应的电脑和路由器。处于网络中传输中的中继层</p>
+</li>
+<li><p>路由器在网络层，路由器根据ip地址寻址，可以处理TCP/IP协议</p>
+</li>
+<li><p>网卡有缓存，在传输的时候，帧会缓存在</p>
+</li>
+</ul>
+<p><strong>网络的访问：</strong></p>
+<ol>
+<li>先将网站的域名发送到DNS（域名解析服务器得到ip地址），然后通过ip访问网站所在的服务器</li>
+</ol>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/dataTransport.jpeg" alt="dataTransport"></p>
+<p><strong>OSI参考模型：</strong></p>
+<ul>
+<li><p>应用层：所有能产生网络流量的<font color="red">程序</font></p>
+</li>
+<li><p>表示层：提供数据压缩，加密，语法选择，数据转换和格式转换服务</p>
+</li>
+<li><p>会话层：打开一个新的网页，就会建立一个会话,查木马 netstat -n–<font color="red">放在操作系统那边，就是新起了一个进程</font></p>
+</li>
+<li><p>传输层：可靠传输（没传成功，会要求重传），流量控制，不可靠传输（一般都是一个包能搞定的事情，比如域名解析）</p>
+</li>
+<li><p>网络层：负责规划包传输路径，ipv4，ipv6–<font color="red">路由器，VLAN（虚拟局域网）</font></p>
+</li>
+<li><p>数据链路层：帧的开始和结束，透明传输（将不代表帧的开头和结束的二进制转义），查错校验，只检查，不纠错，纠错由传输层完成–交换机</p>
+</li>
+<li><p>物理层：借口标准，电器标准（实际上我们的二进制0和1就是电压的高低，所以，不能有的电器5V当成，有的3V当成1）–<font color="red">网线</font></p>
+</li>
+</ul>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/osi.jpeg" alt="osi"></p>
+<p><strong>OSI参考模型对网络排查指导：</strong></p>
+<ul>
+<li><p>物理层故障：</p>
+<ul>
+<li>查看连接状态，发送和接受的数据包，看看是不是网线没有插好</li>
+</ul>
+</li>
+<li><p>数据链路层故障：</p>
+<ul>
+<li><p>MAC冲突，除了用电脑自带的MAC地址，还可以自己设置MAC地址</p>
+</li>
+<li><p>ADSL（拨号上网）欠费</p>
+</li>
+<li><p>网速没办法协商一致</p>
+</li>
+</ul>
+</li>
+<li><p>网络层故障：</p>
+<ul>
+<li><p>配置错误的网关</p>
+</li>
+<li><p>配置了错误的IP地址，子网掩码</p>
+</li>
+<li><p>路由器上没有到达目标ip地址的路径</p>
+</li>
+</ul>
+</li>
+<li><p>应用层故障：</p>
+<ul>
+<li>应用程序配置错误，比如vpn</li>
+</ul>
+</li>
+</ul>
+<p><strong>OSI参考模型和网络安全：</strong></p>
+<ul>
+<li><p>物理层安全：把网线插到别人的交换机里</p>
+</li>
+<li><p>数据链路层安全：ADSL的账号密码，在交换机上绑定MAC地址</p>
+</li>
+<li><p>网络层安全：在路由器上设置网段的访问限制</p>
+</li>
+<li><p>应用层安全：SQL注入</p>
+</li>
+</ul>
+<p><strong>计算机网络的性能：</strong></p>
+<ol>
+<li><p>速率：连接网络的主机在数字信道上传送<font color="red">数据位数</font>的速率,10Mb/s</p>
+</li>
+<li><p>带宽：网络设备所能传送的最高数据率</p>
+</li>
+<li><p>吞吐量：在单位时间内通过某个网络的数据量，也就是各个信道速率的总和</p>
+</li>
+<li><p>时延</p>
+<ol>
+<li><p>发送时延：从网卡开始往外面发，到完全发送出去，称之为发送时延</p>
+</li>
+<li><p>传播时延：从网卡发出来之后，通过光纤到达路由器的时间，称之为传播时延</p>
+</li>
+<li><p>排队时延：会有很多数据包到一个路由器，所以要排队，这是排队时延</p>
+</li>
+<li><p>处理时延：在路由器里要决定这个包通过哪个端口转发出去，这是处理时延</p>
+</li>
+<li><p>传输时延：在网络上传输的时延</p>
+</li>
+</ol>
+</li>
+</ol>
+<font color="red">发送时延主要和网卡的传输有关，例如网卡用1s将10bit的数据完全传输到10m/s的光纤上，那么发送时延就是1s，1bit的长度就是1m，如果光纤长100m，那么最后的传输时延就是10s</font>
+
+<font color="red">光纤比铜线快，并不是因为光纤的传播速率比铜线快，而是因为光纤的识别率比较高，可以支持较低的发送时延。因为网卡传输时延太小了，那么在铜线(光纤)上1bit代表的长度就很小，最后高低电压就识别不出来了</font>
+
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/transportRate.jpeg" alt="transportRate"></p>
+<ol start="5">
+<li><p>时延带宽积： 传播时延*带宽，也就是停留在传播介质中的数据量</p>
+</li>
+<li><p>往返时间RRT(Round-Trip Time)：从发送方发送数据开始，到发送方受到接收方确认的时间</p>
+</li>
+<li><p>利用率：网络利用率越高，时延越大，时延=网络空闲状态时延/（1-信道利用率）</p>
+</li>
+<li><ul>
+<li><p>信道利用率：有数据通过时间/（有+无）数据通过时间</p>
+</li>
+<li><p>网络利用率：所有的信道利用率加权（这个权重是啥）平均</p>
+</li>
+</ul>
+</li>
+</ol>
+<h3 id="2-1-物理层的基本概念"><a href="#2-1-物理层的基本概念" class="headerlink" title="2.1 物理层的基本概念"></a>2.1 物理层的基本概念</h3><p><strong>物理层的特征：</strong></p>
+<ul>
+<li><p>机械特性：例如网线接口的形状，大小，引线数目</p>
+</li>
+<li><p>电气特性：例如规定电压范围在0-5V之间</p>
+</li>
+<li><p>功能特性：例如规定0V代表0，5V代表1</p>
+</li>
+<li><p>过程特性：也称规格特性，规定建立连接时各个相关部件的工作步骤（不太理解）</p>
+</li>
+</ul>
+<h3 id="2-2-数据通信的基础知识"><a href="#2-2-数据通信的基础知识" class="headerlink" title="2.2 数据通信的基础知识"></a>2.2 数据通信的基础知识</h3><p><strong>通信的目的-传输数据：</strong></p>
+<p><img src="https://raw.githubusercontent.com/WuKuida/wukuida.github.io/master/img/transModel.jpeg" alt="transModel"></p>
+</div><div class="tags"><a href="/tags/computer-networks/">computer_networks</a></div><div class="post-nav"><a class="next" href="/2019/07/07/feeling-after-one-year-work/">feeling_after_one_year_work</a></div></div></div></div><div class="pure-u-1-4 hidden_mid_and_down"><div id="sidebar"><div class="widget"><form class="search-form" action="//www.google.com/search" method="get" accept-charset="utf-8" target="_blank"><input type="text" name="q" maxlength="20" placeholder="Search"><input type="hidden" name="sitesearch" value="http://yoursite.com"></form></div><div class="widget"><div class="widget-title"><i class="fa fa-folder-o"> Kategorien</i></div></div><div class="widget"><div class="widget-title"><i class="fa fa-star-o"> Tags</i></div><div class="tagcloud"><a href="/tags/computer-networks/" style="font-size: 15px;">computer_networks</a> <a href="/tags/goal/" style="font-size: 15px;">goal</a> <a href="/tags/prose/" style="font-size: 15px;">prose</a> <a href="/tags/linear-algebra/" style="font-size: 15px;">linear-algebra</a> <a href="/tags/machine-learning/" style="font-size: 15px;">machine_learning</a> <a href="/tags/operating-system/" style="font-size: 15px;">operating_system</a></div></div><div class="widget"><div class="widget-title"><i class="fa fa-file-o"> Letzte</i></div><ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2019/07/13/computer-networks/">computer_networks</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/07/07/feeling-after-one-year-work/">feeling_after_one_year_work</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/22/operating-system/">operating_system</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/20/linear-algebra/">linear-algebra</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/tips/">tips</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/06/14/machine-learning/">Machine Learning</a></li><li class="post-list-item"><a class="post-list-link" href="/2019/03/24/Goals-for-2019/">Goals for 2019</a></li></ul></div><div class="widget"><div class="widget-title"><i class="fa fa-external-link"> Blogroll</i></div><ul></ul><a href="https://github.com/WuKuida" title="wkd's github" target="_blank">wkd's github</a><ul></ul><a href="http://www.example2.com/" title="site-name2" target="_blank">site-name2</a><ul></ul><a href="http://www.example3.com/" title="site-name3" target="_blank">site-name3</a></div></div></div><div class="pure-u-1 pure-u-md-3-4"><div id="footer">Copyright © 2019 <a href="/." rel="nofollow">wkd's blog.</a> Powered by<a rel="nofollow" target="_blank" href="https://hexo.io"> Hexo.</a><a rel="nofollow" target="_blank" href="https://github.com/tufu9441/maupassant-hexo"> Theme</a> by<a rel="nofollow" target="_blank" href="https://github.com/pagecho"> Cho.</a></div></div></div><a class="show" id="rocket" href="#top"></a><script type="text/javascript" src="/js/totop.js?v=0.0.0" async></script><script type="text/javascript" src="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.js" async></script><script type="text/javascript" src="/js/fancybox.js?v=0.0.0" async></script><link rel="stylesheet" type="text/css" href="//lib.baomitu.com/fancybox/3.5.2/jquery.fancybox.min.css"><script type="text/javascript" src="/js/codeblock-resizer.js?v=0.0.0"></script><script type="text/javascript" src="/js/smartresize.js?v=0.0.0"></script></div></body></html>
